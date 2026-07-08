@@ -2,101 +2,737 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mina Magdy Portfolio</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mina Magdy Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+      --card: #ffffff;
+      --primary: #0052cc;
+      --primary-light: #4c9aff;
+      --primary-soft: #e6f0ff;
+      --text: #172b4d;
+      --muted: #6b778c;
+      --border: #dfe1e6;
+      --shadow: 0 10px 30px -10px rgba(0, 82, 204, 0.15);
+      --card-hover: 0 8px 16px -4px rgba(0, 82, 204, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      height: 100dvh;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 860px;
+      height: 100%;
+      max-height: 800px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: var(--card);
+      border-radius: 16px;
+      padding: 12px 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+      flex-shrink: 0;
+    }
+
+    .logo {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 0 0 auto;
+    }
+
+    .logo .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--primary-light);
+    }
+
+    .nav-pills {
+      display: flex;
+      gap: 6px;
+      background: var(--primary-soft);
+      padding: 6px;
+      border-radius: 30px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      max-width: 100%;
+    }
+
+    .nav-pills::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-btn {
+      flex: 0 0 auto;
+      border: none;
+      background: transparent;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 13.5px;
+      color: var(--muted);
+      padding: 8px 18px;
+      border-radius: 24px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all .25s ease;
+    }
+
+    .nav-btn:hover {
+      color: var(--primary);
+    }
+
+    .nav-btn.active {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 6px 12px -4px rgba(0, 82, 204, 0.4);
+    }
+
+    .stage {
+      position: relative;
+      flex: 1;
+      min-height: 0;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      background: var(--card);
+      overflow: hidden;
+    }
+
+    .panel {
+      position: absolute;
+      inset: 0;
+      padding: 40px;
+      overflow-y: auto;
+      opacity: 0;
+      visibility: hidden;
+      transition: transform 0.4s cubic-bezier(.22, .68, .36, 1), opacity 0.4s cubic-bezier(.22, .68, .36, 1), visibility 0.4s;
+    }
+
+    .panel.prev {
+      transform: translateX(-50px);
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .panel.active {
+      transform: translateX(0);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .panel.next {
+      transform: translateX(50px);
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .panel::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .panel::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .panel::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 10px;
+    }
+
+    .panel::-webkit-scrollbar-thumb:hover {
+      background: var(--muted);
+    }
+
+    .kicker {
+      font-size: 12.5px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--primary-light);
+      margin-bottom: 10px;
+    }
+
+    .panel p {
+      line-height: 1.8;
+      font-size: 15.5px;
+      color: var(--muted);
+      margin: 0 0 16px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    /* About Q&A Specific Styling */
+    .qa-container {
+      margin: 28px 0 16px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .qa-item h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .qa-item h3::before {
+      content: "?";
+      font-size: 12px;
+      width: 20px;
+      height: 20px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .qa-item p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0;
+      padding-left: 28px;
+    }
+
+    .about-grid {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .about-text {
+      flex: 1 1 300px;
+    }
+
+    .about-text h1 {
+      font-size: 36px;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .role {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+
+    .avatar-ring {
+      flex: 0 0 auto;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: conic-gradient(from 210deg, var(--primary), var(--primary-light), var(--primary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+    }
+
+    .avatar {
+      width: 136px;
+      height: 136px;
+      border-radius: 50%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 42px;
+      color: var(--primary);
+    }
+
+    .chips {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .chip {
+      font-size: 13px;
+      font-weight: 600;
+      background: var(--primary-soft);
+      color: var(--primary);
+      padding: 6px 16px;
+      border-radius: 20px;
+    }
+
+    .cta {
+      margin-top: 12px;
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 14.5px;
+      padding: 12px 26px;
+      border-radius: 24px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 8px 16px -6px rgba(0, 82, 204, 0.5);
+    }
+
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 20px -6px rgba(0, 82, 204, 0.6);
+    }
+
+    .bar-row {
+      margin-bottom: 22px;
+    }
+
+    .bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14.5px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .bar-label .level {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .bar-track {
+      background: var(--primary-soft);
+      border-radius: 20px;
+      height: 10px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 20px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    }
+
+    .proj-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 700px) {
+      .proj-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .proj-card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      transition: all 0.2s ease;
+      background: #fff;
+    }
+
+    .proj-card:hover {
+      border-color: var(--primary-light);
+      box-shadow: var(--card-hover);
+      transform: translateY(-2px);
+    }
+
+    .proj-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      flex: 0 0 auto;
+    }
+
+    .proj-card h4 {
+      font-size: 16px;
+      color: var(--text);
+    }
+
+    .proj-card ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .proj-card li {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 6px;
+    }
+
+    .hobby-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 600px) {
+      .hobby-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hobby-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 20px;
+      font-weight: 600;
+      font-size: 14.5px;
+      transition: all 0.2s ease;
+    }
+
+    .hobby-card:hover {
+      border-color: var(--primary-light);
+      box-shadow: var(--card-hover);
+      transform: translateY(-2px);
+    }
+
+    .hobby-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--primary-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex: 0 0 auto;
+    }
+
+    h2.section-title {
+      font-size: 26px;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .section-sub {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 28px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .panel {
+        transition: none !important;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .panel {
+        padding: 24px;
+      }
+
+      .about-grid {
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: 24px;
+      }
+
+      .chips {
+        justify-content: center;
+      }
+
+      .navbar {
+        justify-content: center;
+        padding: 12px;
+      }
+
+      .qa-item p {
+        padding-left: 0;
+      }
+
+
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* Keeps the aspect ratio perfect without stretching */
+      border-radius: 50%;
+    }
+  </style>
 </head>
 
-<body class="bg-light py-2">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-10 col-lg-8">
-                <div class="bg-white shadow p-4 p-md-5 rounded text-start">
+<body>
 
-                    <header class="mb-4 bg-dark text-white p-3 p-md-4 rounded">
-                        <div class="row align-items-center">
+  <div class="app">
 
-                            <div class="col-12 col-md-8 text-center text-md-start">
-                                <h1 class="fw-bold m-0 text-white">Mina Magdy</h1>
-                                <h3 class="h3 my-1">Intern</h3>
-                                <h5 class="h5 text-light mb-0">Web Developer</h5>
-                            </div>
-
-                            <div class="col-12 col-md-4 text-center text-md-start mb-3 mb-md-0">
-                                <img src="MinaSuit.jpeg" alt="Mina Magdy"
-                                    class="border rounded-circle border-black border-5"
-                                    style="width: 160px; height: 160px; object-fit: cover; background-color: white;">
-                            </div>
-
-                        </div>
-                    </header>
-                    <h3>Skills</h3>
-                    <ul>
-                        <li>Quick Learner</li>
-                        <li>Problem Solver</li>
-                    </ul>
-                    <h3>Coding Languages</h3>
-                    <ul>
-                        <li>c++ (main)</li>
-                        <li>html and css</li>
-                        <li>python</li>
-                    </ul>
-                    <h3>Projects</h3>
-                    <ul>
-                        <li>Liberary System (c++)
-                            <ul>
-                                <li>Adding books with different IDs for each one</li>
-                                <li>Adding and Author and assigning books to have his name</li>
-                                <li>Renting books and storing the person renting them</li>
-                                <li>Returning books and removing who rented them</li>
-                                <li>Removing books entirely from the system</li>
-                            </ul>
-                        </li>
-                        <li>Bank System (c++)
-                            <ul>
-                                <li>Client accounts that are stored with their passwords and their balance with the
-                                    ability to
-                                    deposit, withdraw or transfer balance</li>
-                                <li>Employee accounts that can get details of all clients and have the ability to edit
-                                    them</li>
-                                <li>Admin accounts that can get details of all employees and have the ability to remove
-                                    them
-                                    while also having the same functionality as an employee account </li>
-                            </ul>
-                        </li>
-                        <li>Movies website (html, css, java script)
-                            <ul>
-                                <li>A user account that can login and watch shows and movies uploaded by an admin</li>
-                                <li>An admin account that can upload, manage or delete uploaded media</li>
-                            </ul>
-                        </li>
-                        <li>Godot 2d Plateformer Game (GDScript)
-                            <ul>
-                                <li>A game where you get to play as a slime that can jump and move around, and your objective is to go through the game from start to finish</li>
-                                <li>Features in the game include a menu, level music, checkpoints, moving objects etc</li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <h3>Spoken Languages</h3>
-                    <ul>
-                        <li>Arabic (Native)</li>
-                        <li>English (Fluent)</li>
-                    </ul>
-                    <h3>Hobbies</h3>
-                    <ul>
-                        <li>Gaming</li>
-                        <li>Walking</li>
-                        <li>Listening to music</li>
-                        <li>Discord Moderation, setups and bot assistance</li>
-                    </ul>
-
-                </div>
-            </div>
-        </div>
+    <div class="navbar">
+      <div class="logo"><span class="dot"></span> Mina Magdy</div>
+      <div class="nav-pills" id="navPills">
+        <button class="nav-btn active" data-index="0">About</button>
+        <button class="nav-btn" data-index="1">Skills</button>
+        <button class="nav-btn" data-index="2">Projects</button>
+        <button class="nav-btn" data-index="3">Languages</button>
+        <button class="nav-btn" data-index="4">Hobbies</button>
+      </div>
     </div>
-</body>
 
+    <div class="stage" id="stage">
+
+      <div class="panel active" data-index="0">
+        <div class="about-grid">
+          <div class="about-text">
+            <div class="kicker">Portfolio</div>
+            <h1>Hi, I'm Mina Magdy</h1>
+            <div class="role">Intern &middot; Web & Game Developer</div>
+            <p>I'm mainly a C++ programmer who's branched out into web development and game scripting. I like building
+              systems from the ground up — accounts, inventories, rental logic — where getting the structure right
+              matters more than the surface.</p>
+            <div class="chips">
+              <span class="chip">Quick Learner</span>
+              <span class="chip">Problem Solver</span>
+            </div>
+
+            <!-- New Q&A Section -->
+            <div class="qa-container">
+              <div class="qa-item">
+                <h3>What is my core background?</h3>
+                <p>I focus on low-level structures and system architecture. While I build web apps and scripts, my
+                  primary comfort zone involves writing safe, efficient logic where data design takes precedence over
+                  simple visual presentation.</p>
+              </div>
+              <div class="qa-item">
+                <h3>What can I build for you?</h3>
+                <p>I engineer robust backends and terminal architectures in C++ (such as custom tokenizers or bank
+                  permission flows), interactive 2D gameplay loops using Godot, and clean, modular web layouts built
+                  ground-up from raw code.</p>
+              </div>
+              <div class="qa-item">
+                <h3>What makes my approach unique?</h3>
+                <p>I value clean implementation details like memory safety, explicit inheritance, and logical hierarchy
+                  over quick fixes. I'm comfortable dealing with complex rules, custom tools, and systems constraints
+                  that others might try to avoid.</p>
+              </div>
+            </div>
+
+            <button class="cta" onclick="showPanel(2)">See my projects</button>
+          </div>
+          <div class="avatar-ring">
+            <div class="avatar">
+              <img src="MinaSuit.jpeg" alt="Mina Magdy">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel next" data-index="1">
+        <h2 class="section-title">What I work with</h2>
+        <div class="section-sub">Coding languages, ordered by how much I use them</div>
+
+        <div class="bar-row">
+          <div class="bar-label"><span>C++</span><span class="level">Main language</span></div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:92%;"></div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label"><span>HTML, CSS & JS</span><span class="level">Comfortable</span></div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:70%;"></div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label"><span>GDScript (Godot)</span><span class="level">Familiar</span></div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:55%;"></div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label"><span>Python</span><span class="level">Familiar</span></div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:55%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel next" data-index="2">
+        <h2 class="section-title">Projects</h2>
+        <div class="section-sub">Things I've built, mostly in C++</div>
+        <div class="proj-grid">
+
+          <div class="proj-card">
+            <div class="proj-head">
+              <div class="badge">TK</div>
+              <h4>Tokenizer <span class="muted" style="font-weight:400;">(C++)</span></h4>
+            </div>
+            <ul>
+              <li>Custom lexical scanner built from scratch</li>
+              <li>Parses strings into distinct token types</li>
+              <li>Memory-safe implementation</li>
+            </ul>
+          </div>
+
+          <div class="proj-card">
+            <div class="proj-head">
+              <div class="badge">LS</div>
+              <h4>Library System <span class="muted" style="font-weight:400;">(C++)</span></h4>
+            </div>
+            <ul>
+              <li>Adds books and authors dynamically</li>
+              <li>Handles rental logic and stores user data</li>
+              <li>Removes books entirely from the system</li>
+            </ul>
+          </div>
+
+          <div class="proj-card">
+            <div class="proj-head">
+              <div class="badge">BS</div>
+              <h4>Bank System <span class="muted" style="font-weight:400;">(C++)</span></h4>
+            </div>
+            <ul>
+              <li>Client accounts with balances — deposit, withdraw, transfer</li>
+              <li>Employee and Admin accounts with hierarchy-based permissions</li>
+            </ul>
+          </div>
+
+          <div class="proj-card">
+            <div class="proj-head">
+              <div class="badge">GP</div>
+              <h4>Godot Platformer <span class="muted" style="font-weight:400;">(GDScript)</span></h4>
+            </div>
+            <ul>
+              <li>Play as a slime that jumps and moves from start to finish</li>
+              <li>Menu, level music, checkpoints, and moving objects</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="panel next" data-index="3">
+        <h2 class="section-title">Spoken languages</h2>
+        <div class="section-sub">&nbsp;</div>
+        <div class="bar-row">
+          <div class="bar-label"><span>Arabic</span><span class="level">Native</span></div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:100%;"></div>
+          </div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label"><span>English</span><span class="level">Fluent</span></div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:88%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel next" data-index="4">
+        <h2 class="section-title">Outside of code</h2>
+        <div class="section-sub">A few things I do when I'm not building something</div>
+        <div class="hobby-grid">
+          <div class="hobby-card">
+            <div class="hobby-icon">🎮</div> Gaming
+          </div>
+          <div class="hobby-card">
+            <div class="hobby-icon">🎧</div> Listening to rock on Spotify
+          </div>
+          <div class="hobby-card">
+            <div class="hobby-icon">🎬</div> Video Editing
+          </div>
+          <div class="hobby-card">
+            <div class="hobby-icon">💬</div> Discord moderation & bots
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.nav-btn');
+    const panels = document.querySelectorAll('.panel');
+
+    function showPanel(newIndex) {
+      panels.forEach((panel, idx) => {
+        panel.classList.remove('active', 'prev', 'next');
+        if (idx === newIndex) {
+          panel.classList.add('active');
+        } else if (idx < newIndex) {
+          panel.classList.add('prev');
+        } else {
+          panel.classList.add('next');
+        }
+      });
+
+      buttons.forEach(b => b.classList.toggle('active', +b.dataset.index === newIndex));
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => showPanel(+btn.dataset.index));
+    });
+  </script>
+
+</body>
 
 </html>
